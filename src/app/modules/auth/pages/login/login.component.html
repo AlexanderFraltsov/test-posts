@@ -1,1 +1,21 @@
-<p>login works!</p>
+<form class="container-sm my-3">
+  <div
+    class="form-group"
+    [formGroup]="authForm"
+    (ngSubmit)="submit()"
+  >
+    <label for="text">Имя</label>
+    <div class="input-group mb-3">
+      <input class="form-control form-control-sm" type="text" id="name" formControlName="name">
+    </div>
+    <label for="formFile" class="form-label">Пароль</label>
+    <div class="input-group py-3">
+      <input class="form-control form-control-sm" type="password" id="password" formControlName="password">
+    </div>
+    <button
+      class="btn btn-outline-primary mr-2"
+      type="submit"
+      (click)="submit()"
+    >Ок</button>
+  </div>
+</form>

@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 
 import { IPost } from '../../../../shared/models/post.model';
 import { PostService } from '../../services/post.service';
+import { LoginService } from '../../../core/services/login.service';
 import { requiredFileType } from '../../utils/requiredFileType';
 
 
@@ -15,6 +16,7 @@ import { requiredFileType } from '../../utils/requiredFileType';
 })
 export class PostComponent implements OnInit {
   @Input() public post?: IPost;
+  @Input() public user?: string;
 
   public postForm!: FormGroup;
   public formControls: {[key: string]: AbstractControl} = {
@@ -35,7 +37,7 @@ export class PostComponent implements OnInit {
     this.postForm = new FormGroup(this.formControls);
   }
 
-  public open(content: any) {
+  public open(content: any): void {
     this.modalService
       .open(content, {ariaLabelledBy: 'modal-basic-title'})
       .result
@@ -49,16 +51,16 @@ export class PostComponent implements OnInit {
           }
         },
         reason => {}
-      )
+      );
   }
 
-  private onDelete() {
+  private onDelete(): void {
     this.postService.removePost(this.post!.id);
   }
 
-  private onEdit() {
-    console.log(this.postForm.value);
+  private onEdit(): void {
     const { file, text } = this.postForm.value;
     this.postService.updatePost({ id: this.post!.id, text, isModified: true});
+    this.postForm.setValue({text: '', file: null});
   }
 }

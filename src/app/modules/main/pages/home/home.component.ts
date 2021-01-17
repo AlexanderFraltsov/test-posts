@@ -1,3 +1,4 @@
+import { LoginService } from '../../../core/services/login.service';
 import { IPost } from '../../../../shared/models/post.model';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -14,6 +15,7 @@ import { requiredFileType } from '../../utils/requiredFileType';
 })
 export class HomeComponent implements OnInit {
   public posts$: Observable<IPost[]>;
+  public user: string | undefined;
 
   public postForm!: FormGroup;
   public formControls: {[key: string]: AbstractControl} = {
@@ -28,16 +30,18 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private postService: PostService,
+    private loginService: LoginService,
     private modalService: NgbModal
     ) {
     this.posts$ = this.postService.getAll();
+    this.user = this.loginService.getLogin();
   }
 
   public ngOnInit(): void {
     this.postForm = new FormGroup(this.formControls);
   }
 
-  public open(content: any) {
+  public open(content: any): void {
     this.modalService
       .open(content, {ariaLabelledBy: 'modal-basic-title'})
       .result
@@ -48,16 +52,17 @@ export class HomeComponent implements OnInit {
           }
         },
         reason => {}
-      )
+      );
   }
 
-  public onAdd(){
-    console.log(this.postForm.value);
+  public onAdd(): void {
     const { file, text } = this.postForm.value;
-
-    this.postService.addPost({ 
-      text,
-      author: 'mockUser'
-    });
+    if (this.user) {
+      this.postService.addPost({
+        text,
+        author: this.user
+      });
+    }
+    this.postForm.setValue({text: '', file: null});
   }
 }

@@ -2,6 +2,7 @@
   <app-post
     *ngFor="let post of posts$ | async"
     [post]="post"
+    [user]="user"
     class="row align-items-center mb-2 border bg-light"
   ></app-post>
   <button

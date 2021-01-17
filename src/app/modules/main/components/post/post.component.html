@@ -12,6 +12,7 @@
       type="button"
       class="btn btn-outline-primary mr-2"
       (click)="open(edit)"
+      [ngbTooltip]="tipContent"
     >Редактировать</button>
     <button
       type="button"
@@ -20,6 +21,8 @@
     >Удалить</button>
   </div>
 </div>
+
+<ng-template #tipContent>Редактировать пост может только создавший его пользователь!</ng-template>
 
 <ng-template #delete let-modal>
   <div class="modal-header">
@@ -65,6 +68,7 @@
       class="btn btn-outline-primary mr-2"
       type="submit"
       (click)="modal.close('edit')"
+      [disabled]="user!==post!.author"
     >Ок</button>
     <button
       type="button"
