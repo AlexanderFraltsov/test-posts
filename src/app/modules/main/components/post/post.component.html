@@ -1,5 +1,13 @@
-<p>{{post!.text}}</p>
-<p>{{post!.file}}</p>
-<p *ngIf="post!.isModified">(отредактировано)</p>
-<p>{{post!.author}}</p>
-<p>{{post!.date | date: 'd MMM yy, h:mm'}}</p>
+<div class="col container">
+  <div class="row align-items-center">
+    <h4 class="col-8">{{post!.text}}</h4>
+    <p *ngIf="post!.file" class="col-4">Вложение: {{post!.file.name}}</p>
+  </div>
+  <div class="row align-items-start my-2">
+    <p class="col">
+      {{post!.author}}, {{post!.date | date: 'd MMM yy, h:mm'}}
+      <small class="col" *ngIf="post!.isModified">(отредактировано)</small>
+    </p>
+    <button type="button" class="btn btn-outline-secondary mr-2">редактировать</button>
+  </div>
+</div>

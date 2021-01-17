@@ -1,3 +1,8 @@
-<div *ngFor="let post of posts$ | async">
-  <app-post [post]="post"></app-post>
+<div class="container my-4">
+  <app-post
+    *ngFor="let post of posts$ | async"
+    [post]="post"
+    class="row align-items-center mb-2 border bg-light"
+  ></app-post>
 </div>
+
