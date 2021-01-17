@@ -1,1 +1,5 @@
-<p>post works!</p>
+<p>{{post!.text}}</p>
+<p>{{post!.file}}</p>
+<p *ngIf="post!.isModified">(отредактировано)</p>
+<p>{{post!.author}}</p>
+<p>{{post!.date | date: 'd MMM yy, h:mm'}}</p>

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { MainRoutingModule } from './main.routing.module';
 import { PostComponent } from './components/post/post.component';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
@@ -11,7 +12,8 @@ import { PostComponent } from './components/post/post.component';
   declarations: [HomeComponent, PostComponent],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    SharedModule
   ]
 })
 export class MainModule { }
