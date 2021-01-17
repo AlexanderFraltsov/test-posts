@@ -32,9 +32,18 @@ export class PostService {
     return this.posts$;
   }
 
-  public addPost(post: IPost): void {
+  public addPost(post: {text: string, author: string}): void {
     const prev = this.posts$.getValue();
-    this.posts$.next([...prev, post]);
+    const date = new Date();
+    this.posts$.next([
+      ...prev,
+      {
+        isModified: false,
+        id: date.toString(),
+        date,
+        ...post
+      }
+    ]);
   }
 
   public removePost(id: string): void {

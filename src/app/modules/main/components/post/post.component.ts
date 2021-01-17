@@ -1,24 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
 import { IPost } from '../../../../shared/models/post.model';
 import { PostService } from '../../services/post.service';
+import { requiredFileType } from '../../utils/requiredFileType';
 
-const requiredFileType = (type: string) => (control: FormControl) => {
-  const file = control.value;
-  if (file) {
-    if (file.name) {
-      const ext = file.name.split('.')[1].toLowerCase();
-      if (type.toLowerCase() === ext) {
-        return null
-      }
-    }
-  }
-  return {
-    requiredFileType: true
-  }
-}
+
 
 @Component({
   selector: 'app-post',
@@ -27,13 +15,9 @@ const requiredFileType = (type: string) => (control: FormControl) => {
 })
 export class PostComponent implements OnInit {
   @Input() public post?: IPost;
-  constructor(
-    private postService: PostService,
-    private modalService: NgbModal
-  ) { }
 
-  public postForm: FormGroup;
-  public formControls = {
+  public postForm!: FormGroup;
+  public formControls: {[key: string]: AbstractControl} = {
     text: new FormControl('', [
       Validators.required
     ]),
@@ -42,7 +26,12 @@ export class PostComponent implements OnInit {
     ]),
   };
 
-  ngOnInit(): void {
+  constructor(
+    private postService: PostService,
+    private modalService: NgbModal
+  ) { }
+
+  public ngOnInit(): void {
     this.postForm = new FormGroup(this.formControls);
   }
 
@@ -63,11 +52,11 @@ export class PostComponent implements OnInit {
       )
   }
 
-  public onDelete() {
+  private onDelete() {
     this.postService.removePost(this.post!.id);
   }
 
-  public onEdit() {
+  private onEdit() {
     console.log(this.postForm.value);
     const { file, text } = this.postForm.value;
     this.postService.updatePost({ id: this.post!.id, text, isModified: true});
