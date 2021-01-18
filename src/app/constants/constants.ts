@@ -23,3 +23,12 @@ export const mockPosts: IPost[] = [
     isModified: true
   }
 ];
+
+export enum searchTypes {
+  NAME = 'имени автора',
+  DATE = 'дате создания',
+  WORD = 'ключевому слову',
+  DOCUMENT = 'названию документа'
+}
+
+export const SEARCH_STRING = 'searchString';

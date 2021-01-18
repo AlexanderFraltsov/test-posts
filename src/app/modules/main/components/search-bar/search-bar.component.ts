@@ -1,17 +1,12 @@
-import { filter, debounceTime } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnDestroy } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { filter, debounceTime } from 'rxjs/operators';
+
 import { SearchService } from '../../services/search.service';
+import { searchTypes, SEARCH_STRING } from '../../../../constants/constants';
 
-enum searchTypes {
-  NAME = 'имени автора',
-  DATE = 'дате создания',
-  WORD = 'ключевому слову',
-  DOCUMENT = 'названию документа'
-}
 
-const SEARCH_STRING = 'searchString';
 
 @Component({
   selector: 'app-search-bar',
@@ -20,7 +15,7 @@ const SEARCH_STRING = 'searchString';
 })
 export class SearchBarComponent implements OnDestroy {
 
-  public searchType: string = searchTypes.NAME;
+  public searchType: searchTypes = searchTypes.NAME;
   public form: FormGroup;
 
   public searchSubscription: Subscription;
@@ -46,7 +41,8 @@ export class SearchBarComponent implements OnDestroy {
   }
 
   public onSearchTypeToggle( type: string ): void {
-    this.searchType = type;
+    this.searchType = (type as searchTypes);
+    this.searchService.searchType$.next(type as searchTypes);
   }
 
   public ngOnDestroy(): void {
