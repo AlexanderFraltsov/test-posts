@@ -1,4 +1,7 @@
 <div class="container my-4">
+  <app-search-bar
+    class="row align-items-center mb-4 px-2 border"
+  ></app-search-bar>
   <app-post
     *ngFor="let post of posts$ | async"
     [post]="post"

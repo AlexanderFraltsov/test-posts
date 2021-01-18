@@ -1,10 +1,10 @@
-import { LoginService } from '../../../core/services/login.service';
-import { IPost } from '../../../../shared/models/post.model';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
+import { LoginService } from '../../../core/services/login.service';
+import { IPost } from '../../../../shared/models/post.model';
 import { PostService } from '../../services/post.service';
 import { requiredFileType } from '../../utils/requiredFileType';
 

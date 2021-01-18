@@ -1,0 +1,14 @@
+<div class="col py-2">
+  <div ngbDropdown class="d-inline-block">
+    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Поиск по {{searchType}}</button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem (click)="onSearchTypeToggle('имени автора')">Имени автора</button>
+      <button ngbDropdownItem (click)="onSearchTypeToggle('дате создания')">Дате создания</button>
+      <button ngbDropdownItem (click)="onSearchTypeToggle('ключевому слову')">Ключевому слову</button>
+      <button ngbDropdownItem (click)="onSearchTypeToggle('названию документа')">Названию документа</button>
+    </div>
+  </div>
+</div>
+<form class="col py-2" [formGroup]="form">
+  <input id="input" type="text" class="form-control" formControlName="searchString"/>
+</form>
