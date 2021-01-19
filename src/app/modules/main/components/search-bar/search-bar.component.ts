@@ -34,7 +34,6 @@ export class SearchBarComponent implements OnDestroy {
       )
       .subscribe(
         query => {
-          console.log(query);
           this.searchService.searchString$.next(query);
         }
       );

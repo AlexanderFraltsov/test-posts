@@ -26,7 +26,6 @@ export class MarkedMapPipe implements PipeTransform {
     const typeResolved: searchTypes = type === null ? searchTypes.NAME : type as searchTypes;
     return posts.map(post => {
       const { author, date, text, file } = post;
-      console.log(text);
       return {
         ...post,
         author: {

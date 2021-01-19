@@ -17,26 +17,35 @@ export class PostComponent implements OnInit {
   @Input() public post?: IMarkedPost;
   @Input() public user?: string;
 
-  public postForm!: FormGroup;
-  public formControls: {[key: string]: AbstractControl} = {
-    text: new FormControl('', [
-      Validators.required
-    ]),
-    file: new FormControl(null, [
-      requiredFileType('pdf')
-    ]),
-  };
+  public postForm: FormGroup;
+  public formControls: {[key: string]: AbstractControl};
 
   constructor(
     private postService: PostService,
     private modalService: NgbModal
-  ) { }
-
-  public ngOnInit(): void {
+  ) {
+    this.formControls = {
+      text: new FormControl('', [
+        Validators.required
+      ]),
+      file: new FormControl(null, [
+        requiredFileType('pdf')
+      ]),
+    };
     this.postForm = new FormGroup(this.formControls);
   }
 
+  public ngOnInit(): void {}
+
   public open(content: any): void {
+    if (this.post) {
+      const { text, file } = this.post;
+      this.postForm.patchValue({
+        text: text.value,
+        file: file?.value
+      });
+    }
+
     this.modalService
       .open(content, {ariaLabelledBy: 'modal-basic-title'})
       .result
