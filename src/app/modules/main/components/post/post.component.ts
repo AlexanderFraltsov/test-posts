@@ -2,9 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
-import { IPost } from '../../../../shared/models/post.model';
+import { IMarkedPost } from '../../../../shared/models/markedPost.model';
 import { PostService } from '../../services/post.service';
-import { LoginService } from '../../../core/services/login.service';
 import { requiredFileType } from '../../utils/requiredFileType';
 
 
@@ -15,7 +14,7 @@ import { requiredFileType } from '../../utils/requiredFileType';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  @Input() public post?: IPost;
+  @Input() public post?: IMarkedPost;
   @Input() public user?: string;
 
   public postForm!: FormGroup;

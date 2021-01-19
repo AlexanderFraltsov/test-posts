@@ -1,11 +1,26 @@
 <div class="col container">
   <div class="row align-items-start">
-    <h4 class="col-9">{{post!.text}}</h4>
-    <p *ngIf="post!.file" class="col">Вложение: {{post!.file!.name}}</p>
+    <h4
+      class="col-9"
+      [ngClass]="post!.text!.isMark ? 'marked': ''"
+    >
+      {{post!.text!.value}}
+    </h4>
+    <p
+      *ngIf="post!.file!.value" class="col"
+      [ngClass]="post!.file!.isMark ? 'marked': ''"
+    >
+      Вложение: {{post!.file!.value!.name}}
+    </p>
   </div>
   <div class="row align-items-start my-2">
     <p class="col">
-      {{post!.author}}, {{post!.date | date: 'd MMM yy, h:mm'}}
+      <span [ngClass]="post!.author!.isMark ? 'marked': ''">
+        {{post!.author!.value}}
+      </span>
+      <span [ngClass]="post!.date!.isMark ? 'marked': ''">
+        {{post!.date!.value | date: 'd MMM yy, h:mm'}}
+      </span>
       <small class="col" *ngIf="post!.isModified">(отредактировано)</small>
     </p>
     <button
@@ -68,7 +83,7 @@
       class="btn btn-outline-primary mr-2"
       type="submit"
       (click)="modal.close('edit')"
-      [disabled]="user!==post!.author"
+      [disabled]="user!==post!.author!.value"
     >Ок</button>
     <button
       type="button"

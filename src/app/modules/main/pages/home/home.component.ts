@@ -1,17 +1,20 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
+import { searchTypes } from '../../../../constants/constants';
 import { LoginService } from '../../../core/services/login.service';
 import { IPost } from '../../../../shared/models/post.model';
+import { SearchService } from '../../services/search.service';
 import { PostService } from '../../services/post.service';
 import { requiredFileType } from '../../utils/requiredFileType';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
   public posts$: Observable<IPost[]>;
@@ -31,6 +34,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private postService: PostService,
     private loginService: LoginService,
+    public searchService: SearchService,
     private modalService: NgbModal
     ) {
     this.posts$ = this.postService.getAll();

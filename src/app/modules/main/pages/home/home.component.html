@@ -3,7 +3,7 @@
     class="row align-items-center mb-4 px-2 border"
   ></app-search-bar>
   <app-post
-    *ngFor="let post of posts$ | async"
+    *ngFor="let post of posts$ | async | markedMap: (searchService.searchType$ | async) : (searchService.searchString$ | async)"
     [post]="post"
     [user]="user"
     class="row align-items-center mb-2 border bg-light"

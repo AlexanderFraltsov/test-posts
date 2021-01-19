@@ -10,7 +10,6 @@ import { mockPosts } from '../../../constants/constants';
 })
 export class PostService {
   public posts$: BehaviorSubject<IPost[]> = new BehaviorSubject<IPost[]>(mockPosts);
-  constructor() { }
 
   public getAll(): Observable<IPost[]> {
     return this.posts$;
