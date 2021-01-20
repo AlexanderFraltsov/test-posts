@@ -29,7 +29,13 @@ export class SearchBarComponent implements OnDestroy {
 
     this.searchSubscription = this.form.get(SEARCH_STRING)!.valueChanges
       .pipe(
-        filter(str => str.trim().length >= 3),
+        filter(str => {
+          if (str.trim().length >= 3) {
+            return true;
+          }
+          this.searchService.searchString$.next('');
+          return false;
+        }),
         debounceTime(400)
       )
       .subscribe(
