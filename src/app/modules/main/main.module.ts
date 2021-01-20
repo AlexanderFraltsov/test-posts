@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MainRoutingModule } from './main.routing.module';
+import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
 import { PostComponent } from './components/post/post.component';
@@ -18,7 +19,8 @@ import { MarkedMapPipe } from './pipes/marked-map.pipe';
   ],
   imports: [
     MainRoutingModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ]
 })
 export class MainModule { }

@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { ToastService } from '../../../core/services/toast.service';
 import { IMarkedPost } from '../../../../shared/models/markedPost.model';
 import { PostService } from '../../services/post.service';
 import { requiredFileType } from '../../utils/requiredFileType';
@@ -22,7 +23,8 @@ export class PostComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastService: ToastService
   ) {
     this.formControls = {
       text: new FormControl('', [
@@ -64,11 +66,17 @@ export class PostComponent implements OnInit {
 
   private onDelete(): void {
     this.postService.removePost(this.post!.id);
+    this.toastService.show('Пост удален!', {
+      classname: 'bg-danger text-light'
+    });
   }
 
   private onEdit(): void {
     const { file, text } = this.postForm.value;
     this.postService.updatePost({ id: this.post!.id, text, isModified: true});
     this.postForm.setValue({text: '', file: null});
+    this.toastService.show('Пост отредактирован!', {
+      classname: 'bg-primary text-light'
+    });
   }
 }

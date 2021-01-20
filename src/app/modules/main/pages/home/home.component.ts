@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
-import { searchTypes } from '../../../../constants/constants';
+import { ToastService } from '../../../core/services/toast.service';
 import { LoginService } from '../../../core/services/login.service';
 import { IPost } from '../../../../shared/models/post.model';
 import { SearchService } from '../../services/search.service';
@@ -35,7 +35,8 @@ export class HomeComponent implements OnInit {
     private postService: PostService,
     private loginService: LoginService,
     public searchService: SearchService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private toastService: ToastService
     ) {
     this.posts$ = this.postService.getAll();
     this.user = this.loginService.getLogin();
@@ -68,5 +69,8 @@ export class HomeComponent implements OnInit {
       });
     }
     this.postForm.setValue({text: '', file: null});
+    this.toastService.show('Пост успешно добавлен!', {
+      classname: 'bg-success text-light'
+    });
   }
 }

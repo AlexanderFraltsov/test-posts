@@ -17,7 +17,7 @@
     <p class="col">
       <span [ngClass]="post!.author!.isMark ? 'marked': ''">
         {{post!.author!.value}}
-      </span>
+      </span>:
       <span [ngClass]="post!.date!.isMark ? 'marked': ''">
         {{post!.date!.value | date: 'd MMM yy, h:mm'}}
       </span>
@@ -92,3 +92,5 @@
     >Отмена</button>
   </div>
 </ng-template>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
