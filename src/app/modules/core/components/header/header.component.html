@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row align-items-center justify-content-center py-2">
+    <span class="px-2 col-auto shrink">Текущий пользователь: {{loginService.author$ | async}}</span>
+    <button
+      *ngIf="(loginService.author$ | async);else elseBlock"
+      (click)="loginService.logout()"
+      type="button"
+      class="btn btn-outline-danger col-auto shrink"
+    >
+      Выйти
+    </button>
+  </div>
+</div>
+
+<ng-template #elseBlock><span class="px-2 col-auto shrink">нет</span></ng-template>

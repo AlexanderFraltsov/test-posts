@@ -1,21 +1,73 @@
-<form class="container-sm my-3">
-  <div
-    class="form-group"
-    [formGroup]="authForm"
-    (ngSubmit)="submit()"
-  >
-    <label for="text">Имя</label>
-    <div class="input-group mb-3">
-      <input class="form-control form-control-sm" type="text" id="name" formControlName="name">
+<form
+  class="form-group container my-3 p-3 border h-75"
+  [formGroup]="authForm"
+  (ngSubmit)="submit()"
+>
+  <div class="row align-items-center">
+    <label
+      for="text"
+      class="form-label col-12"
+    >
+      Имя
+    </label>
+    <div class="input-group mb-3 col-12">
+      <input
+        class="form-control form-control-sm"
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Username"
+      >
     </div>
-    <label for="formFile" class="form-label">Пароль</label>
-    <div class="input-group py-3">
-      <input class="form-control form-control-sm" type="password" id="password" formControlName="password">
+    <app-alert
+      class="px-3"
+      *ngIf="errors[possibleErrors.NO_NAME]"
+      [alert]="possibleErrors.NO_NAME"
+      (closeAlert)="closeOneOfAlerts($event)"
+    ></app-alert>
+    <app-alert
+      class="px-3"
+      *ngIf="errors[possibleErrors.NAME_MIN_LENGTH]"
+      [alert]="possibleErrors.NAME_MIN_LENGTH"
+      (closeAlert)="closeOneOfAlerts($event)"
+    ></app-alert>
+    <label
+      for="formFile"
+      class="form-label col-12"
+    >
+      Пароль
+    </label>
+    <div class="input-group mb-3 col-12">
+      <input
+        class="form-control form-control-sm"
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Password"
+      >
     </div>
-    <button
-      class="btn btn-outline-primary mr-2"
-      type="submit"
-      (click)="submit()"
-    >Ок</button>
+    <app-alert
+      class="px-3"
+      *ngIf="errors[possibleErrors.NO_PASSWORD]"
+      [alert]="possibleErrors.NO_PASSWORD"
+      (closeAlert)="closeOneOfAlerts($event)"
+    ></app-alert>
+    <app-alert
+      class="px-3"
+      *ngIf="errors[possibleErrors.PASSWORD_MIN_LENGTH]"
+      [alert]="possibleErrors.PASSWORD_MIN_LENGTH"
+      (closeAlert)="closeOneOfAlerts($event)"
+    ></app-alert>
+    <div class="mx-3">
+      <button
+        class="btn btn-outline-primary"
+        type="submit"
+        (click)="submit()"
+      >Войти</button>
+    </div>
   </div>
+
+
 </form>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

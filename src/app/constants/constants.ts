@@ -32,3 +32,10 @@ export enum searchTypes {
 }
 
 export const SEARCH_STRING = 'searchString';
+
+export const loginErrors = {
+  NO_NAME: 'Введите имя пользователя',
+  NO_PASSWORD: 'Введите пароль',
+  NAME_MIN_LENGTH: 'Имя должно состоять минимум из трех символов',
+  PASSWORD_MIN_LENGTH: 'Пароль должен состоять минимум из 8 символов'
+}
