@@ -2,9 +2,13 @@
   <div class="row align-items-start">
     <h4
       class="col-9"
-      [ngClass]="post!.text!.isMark ? 'marked': ''"
-    >
-      {{post!.text!.value}}
+      >
+      <span
+        *ngFor="let fragment of post!.fragments"
+        [ngClass]="fragment.isMark ? 'marked': ''"
+      >
+        {{fragment.value}}
+      </span>
     </h4>
     <div
       *ngIf="post!.file!.value"

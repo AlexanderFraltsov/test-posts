@@ -8,10 +8,11 @@ export interface IMarkedPost {
     value: Date,
     isMark: boolean
   };
-  text: {
+  text: string;
+  fragments: {
     value: string,
     isMark: boolean
-  };
+  }[];
   isModified: boolean;
   file?: {
     value?: File,

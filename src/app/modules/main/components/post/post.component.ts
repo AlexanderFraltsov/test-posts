@@ -50,7 +50,7 @@ export class PostComponent implements OnInit {
       this.editedFile = file?.value || null;
 
       this.postForm.patchValue({
-        text: text.value,
+        text,
         file: file?.value?.name,
         fileSource: file?.value
       });
@@ -84,7 +84,7 @@ export class PostComponent implements OnInit {
 
     const isModified = (
       fileSource !== this.post?.file?.value ||
-      text !== this.post?.text.value
+      text !== this.post?.text
     );
 
     if ( !isModified ) {
