@@ -38,4 +38,6 @@ export const loginErrors = {
   NO_PASSWORD: 'Введите пароль',
   NAME_MIN_LENGTH: 'Имя должно состоять минимум из трех символов',
   PASSWORD_MIN_LENGTH: 'Пароль должен состоять минимум из 8 символов'
-}
+};
+
+export const PDF_ICON = 'https://cdn4.iconfinder.com/data/icons/file-extensions-1/64/pdfs-512.png';

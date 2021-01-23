@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { PDF_ICON } from '../../../../constants/constants';
 import { ToastService } from '../../../core/services/toast.service';
 import { IMarkedPost } from '../../../../shared/models/markedPost.model';
 import { PostService } from '../../services/post.service';
@@ -18,7 +19,9 @@ export class PostComponent implements OnInit {
   @Input() public post?: IMarkedPost;
   @Input() public user?: string;
 
+  public icon = PDF_ICON;
   public postForm: FormGroup;
+  public editedFile: File | null = null;
   public formControls: {[key: string]: AbstractControl};
 
   constructor(
@@ -30,9 +33,10 @@ export class PostComponent implements OnInit {
       text: new FormControl('', [
         Validators.required
       ]),
-      file: new FormControl(null, [
+      file: new FormControl('', [
         requiredFileType('pdf')
       ]),
+      fileSource: new FormControl('')
     };
     this.postForm = new FormGroup(this.formControls);
   }
@@ -42,9 +46,13 @@ export class PostComponent implements OnInit {
   public open(content: any): void {
     if (this.post) {
       const { text, file } = this.post;
+
+      this.editedFile = file?.value || null;
+
       this.postForm.patchValue({
         text: text.value,
-        file: file?.value
+        file: file?.value?.name,
+        fileSource: file?.value
       });
     }
 
@@ -72,11 +80,44 @@ export class PostComponent implements OnInit {
   }
 
   private onEdit(): void {
-    const { file, text } = this.postForm.value;
-    this.postService.updatePost({ id: this.post!.id, text, isModified: true});
-    this.postForm.setValue({text: '', file: null});
+    const { fileSource, text } = this.postForm.value;
+
+    const isModified = (
+      fileSource !== this.post?.file?.value ||
+      text !== this.post?.text.value
+    );
+
+    if ( !isModified ) {
+      return;
+    }
+
+    this.postService.updatePost({
+      id: this.post!.id,
+      text,
+      isModified,
+      file: fileSource
+    });
+    this.postForm.setValue({text: '', file: '', fileSource: ''});
     this.toastService.show('Пост отредактирован!', {
       classname: 'bg-primary text-light'
+    });
+  }
+
+  public onFileChange(e: any): void {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      this.postForm.patchValue({
+        fileSource: file
+      });
+      this.editedFile = file;
+    }
+  }
+
+  public onClear(): void {
+    this.editedFile = null;
+    this.postForm.patchValue({
+      fileSource: '',
+      file: ''
     });
   }
 }

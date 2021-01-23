@@ -6,7 +6,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { AlertComponent } from './components/alert/alert.component';
 
 
-
 @NgModule({
   declarations: [
     NotFoundComponent,

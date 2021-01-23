@@ -15,7 +15,7 @@ export class PostService {
     return this.posts$;
   }
 
-  public addPost(post: {text: string, author: string}): void {
+  public addPost(post: {text: string, author: string, file?: File}): void {
     const prev = this.posts$.getValue();
     const date = new Date();
     this.posts$.next([

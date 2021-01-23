@@ -6,12 +6,21 @@
     >
       {{post!.text!.value}}
     </h4>
-    <p
-      *ngIf="post!.file!.value" class="col"
-      [ngClass]="post!.file!.isMark ? 'marked': ''"
+    <div
+      *ngIf="post!.file!.value"
+      class="col pt-2"
     >
-      Вложение: {{post!.file!.value!.name}}
-    </p>
+      <img
+        src={{icon}}
+        class="rounded"
+        alt="pdf"
+        width="40"
+        height="50"
+      >
+      <p [ngClass]="post!.file!.isMark ? 'marked': ''">
+        {{post!.file!.value!.name}}
+      </p>
+    </div>
   </div>
   <div class="row align-items-start my-2">
     <p class="col">
@@ -69,11 +78,47 @@
       >
         <label for="text">Text</label>
         <div class="input-group mb-3">
-          <textarea id="text" class="form-control" name="text" formControlName="text"></textarea>
+          <textarea
+            id="text"
+            class="form-control"
+            name="text"
+            formControlName="text"
+            rows="5"
+          ></textarea>
         </div>
-        <label for="formFile" class="form-label">Добавить pdf-файл</label>
-        <div class="input-group py-3">
-          <input class="form-control form-control-sm" type="file" id="file" formControlName="file">
+        <div
+          *ngIf="!editedFile"
+          class="input-group"
+        >
+          <label for="file" class="form-label btn btn-outline-primary">Добавить pdf-файл</label>
+          <input
+            class="form-control d-none"
+            type="file"
+            id="file"
+            formControlName="file"
+            accept=".pdf"
+            (change)="onFileChange($event)"
+          >
+        </div>
+        <div
+          *ngIf="editedFile"
+          class="d-flex flex-row justify-content-center"
+        >
+          <img
+            src={{icon}}
+            class="rounded pr-1"
+            alt="pdf"
+            width="40"
+            height="50"
+          >
+          <p>
+            {{editedFile!.name}}
+          </p>
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="onClear()"
+          >delete</button>
         </div>
       </div>
     </form>
