@@ -1,3 +1,4 @@
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -20,6 +21,7 @@ export class PostComponent implements OnInit {
   @Input() public user?: string;
 
   public icon = PDF_ICON;
+  public fileUrl: SafeUrl | null = null;
   public postForm: FormGroup;
   public editedFile: File | null = null;
   public formControls: {[key: string]: AbstractControl};
@@ -27,7 +29,8 @@ export class PostComponent implements OnInit {
   constructor(
     private postService: PostService,
     private modalService: NgbModal,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private sanitizer: DomSanitizer
   ) {
     this.formControls = {
       text: new FormControl('', [
@@ -38,10 +41,18 @@ export class PostComponent implements OnInit {
       ]),
       fileSource: new FormControl('')
     };
+
     this.postForm = new FormGroup(this.formControls);
+
+
   }
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    if (this.post?.file?.value) {
+      const url = URL.createObjectURL(this.post?.file?.value);
+      this.fileUrl = this.sanitizer.bypassSecurityTrustUrl(url);
+    }
+  }
 
   public open(content: any): void {
     if (this.post) {

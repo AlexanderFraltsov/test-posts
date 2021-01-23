@@ -21,9 +21,13 @@
         width="40"
         height="50"
       >
-      <p [ngClass]="post!.file!.isMark ? 'marked': ''">
+      <a
+        [ngClass]="post!.file!.isMark ? 'marked': ''"
+        [download]="post!.file!.value!.name"
+        [href]="fileUrl"
+      >
         {{post!.file!.value!.name}}
-      </p>
+      </a>
     </div>
   </div>
   <div class="row align-items-start my-2">
