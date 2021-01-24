@@ -1,6 +1,6 @@
 import { LoginComponent } from './../../auth/pages/login/login.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 
 import { loginErrors, paths } from '../../../constants/constants';
 import { LoginService } from './login.service';
@@ -69,22 +69,22 @@ describe('LoginService', () => {
     service.logout();
 
     expect(service.author$.value).toBe('');
-    expect(localStorage.getItem('user')).toBe(null);
+    expect(localStorage.getItem('user')).toBeNull();
   });
 
-  it('should get login', () => {
+  it('should get login', fakeAsync(() => {
 
-    expect(service.getLogin()).toBe(undefined);
+    expect(service.getLogin()).toBeUndefined();
 
     const name = 'Paul';
     const password = 'Atreides';
     service.login(name, password);
 
-    expect(service.author$.value).toBe(name);
-    expect(localStorage.getItem('user')).toBe(name);
+    tick(50);
 
+    expect(service.author$.value).toBe(name);
     expect(service.getLogin()).toBe(name);
-  });
+  }));
 
   it('should set author$ to empty on empty USER when get login', () => {
 
@@ -94,7 +94,7 @@ describe('LoginService', () => {
 
     const gettedLogin = service.getLogin();
 
-    expect(gettedLogin).toBe(undefined);
+    expect(gettedLogin).toBeUndefined();
     expect(service.author$.value).toBe('');
   });
 
