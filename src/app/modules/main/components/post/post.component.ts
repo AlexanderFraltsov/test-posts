@@ -105,7 +105,6 @@ export class PostComponent implements OnInit {
     this.postService.updatePost({
       id: this.post!.id,
       text,
-      isModified,
       file: fileSource
     });
     this.postForm.setValue({text: '', file: '', fileSource: ''});

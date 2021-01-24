@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -6,13 +6,10 @@ import { LoginService } from '../../services/login.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(
     public loginService: LoginService
   ) { }
-
-  ngOnInit(): void {
-  }
 
 }

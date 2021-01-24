@@ -22,4 +22,11 @@ describe('AlertComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('raises the alert event when clicked', () => {
+    const alert = 'alert';
+    component.alert = alert;
+    component.closeAlert.subscribe((generatedAlert: string) => expect(generatedAlert).toBe(alert));
+    component.close();
+  });
 });

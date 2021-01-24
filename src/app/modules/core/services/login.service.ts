@@ -50,8 +50,9 @@ export class LoginService {
     if (user) {
       this.author$.next(user);
       return user;
+    } else {
+      this.author$.next('');
+      return;
     }
-    this.author$.next('');
-    return;
   }
 }

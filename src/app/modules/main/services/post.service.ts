@@ -38,7 +38,11 @@ export class PostService {
     const prev = this.posts$.getValue();
     this.posts$.next(prev.map(el => {
       if (el.id === post.id) {
-        return {...el, ...post};
+        return {
+          ...el,
+          ...post,
+          isModified: true
+        };
       }
       return el;
     }));

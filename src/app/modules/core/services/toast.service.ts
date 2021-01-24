@@ -6,11 +6,11 @@ import { Injectable, TemplateRef } from '@angular/core';
 export class ToastService {
   public toasts: any[] = [];
 
-  public show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
+  public show(textOrTpl: string | TemplateRef<any>, options: any = {}): void {
     this.toasts.push({ textOrTpl, ...options });
   }
 
-  public remove(toast: any) {
-    this.toasts = this.toasts.filter(t => t !== toast);
+  public remove(toast: any): void {
+    this.toasts = this.toasts.filter(t => t.textOrTpl !== toast.textOrTpl);
   }
 }
