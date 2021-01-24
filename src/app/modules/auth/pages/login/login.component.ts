@@ -1,7 +1,7 @@
-import { loginErrors } from '../../../../constants/constants';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import { loginErrors } from '../../../../constants/constants';
 import { LoginService } from '../../../core/services/login.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { LoginService } from '../../../core/services/login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public authForm: FormGroup;
   public errors: {[key: string]: boolean} = {};
   public possibleErrors = loginErrors;
@@ -24,9 +24,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public ngOnInit(): void {
-  }
-
   public submit(): void {
     const {name, password} = this.authForm.value;
     try {
@@ -35,12 +32,11 @@ export class LoginComponent implements OnInit {
       this.errors = {};
       e.map((el: string) => {
         this.errors[el] = true;
-      })
-      console.log(this.errors);
+      });
     }
   }
 
-  public closeOneOfAlerts(alert: string){
+  public closeOneOfAlerts(alert: string): void {
     this.errors[alert] = false;
   }
 }

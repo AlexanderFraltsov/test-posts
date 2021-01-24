@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, HostBinding, TemplateRef } from '@angular/core';
 
 import { ToastService } from '../../services/toast.service';
 
@@ -6,12 +6,12 @@ import { ToastService } from '../../services/toast.service';
   selector: 'app-toasts',
   templateUrl: './toasts.component.html',
   styleUrls: ['./toasts.component.scss'],
-  host: {'[class.ngb-toasts]': 'true'}
 })
 export class ToastsComponent {
+  @HostBinding('class.ngb-toasts') host = true;
   constructor(public toastService: ToastService) { }
 
-  public isTemplate(toast: any) {
+  public isTemplate(toast: any): boolean {
     return toast.textOrTpl instanceof TemplateRef;
   }
 }

@@ -1,8 +1,10 @@
+import { LoginComponent } from './../../auth/pages/login/login.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { loginErrors } from '../../../constants/constants';
+import { loginErrors, paths } from '../../../constants/constants';
 import { LoginService } from './login.service';
+import { HomeComponent } from '../../main/pages/home/home.component';
 
 describe('LoginService', () => {
   let service: LoginService;
@@ -10,7 +12,10 @@ describe('LoginService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule.withRoutes([
+          { path: paths.AUTH, component: LoginComponent },
+          { path: paths.MAIN, component: HomeComponent },
+        ])
       ]
     });
     service = TestBed.inject(LoginService);

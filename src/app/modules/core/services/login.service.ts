@@ -17,16 +17,16 @@ export class LoginService {
   public login(name: string, password: string): void {
     const errors = [];
     if (!name) {
-      errors.push(loginErrors.NO_NAME)
+      errors.push(loginErrors.NO_NAME);
     }
     if (!password) {
-      errors.push(loginErrors.NO_PASSWORD)
+      errors.push(loginErrors.NO_PASSWORD);
     }
     if (name.trim().length < 3) {
-      errors.push(loginErrors.NAME_MIN_LENGTH)
+      errors.push(loginErrors.NAME_MIN_LENGTH);
     }
     if (password.trim().length < 8) {
-      errors.push(loginErrors.PASSWORD_MIN_LENGTH)
+      errors.push(loginErrors.PASSWORD_MIN_LENGTH);
     }
 
     if (errors.length) {
@@ -36,7 +36,6 @@ export class LoginService {
     this.author$.next(name);
     localStorage.setItem('user', name);
     this.router.navigate([paths.MAIN]);
-
   }
 
   public logout(): void {

@@ -1,4 +1,3 @@
-import { filter } from 'rxjs/operators';
 import { TestBed } from '@angular/core/testing';
 
 import { mockPosts } from '../../../constants/constants';
